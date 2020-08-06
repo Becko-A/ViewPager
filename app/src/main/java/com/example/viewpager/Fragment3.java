@@ -19,6 +19,7 @@ public class Fragment3 extends Fragment {
     private View setting;
     private View shiwu;
     private View diushi;
+    private View wanshan;
 
     public static Fragment3 newInstance() {
         return new Fragment3();
@@ -38,6 +39,7 @@ public class Fragment3 extends Fragment {
         setting=(View) getActivity().findViewById(R.id.settings);
         shiwu=(View) getActivity().findViewById(R.id.record_shiwu);
         diushi=(View) getActivity().findViewById(R.id.diushi);
+        wanshan=(View) getActivity().findViewById(R.id.wsmessage);
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +59,13 @@ public class Fragment3 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getActivity(), Crecord_diushi.class);
+                startActivity(intent);
+            }
+        });
+        wanshan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), Cimprove.class);
                 startActivity(intent);
             }
         });
