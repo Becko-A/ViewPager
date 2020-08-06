@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="智能寻物系统"
+        android:textColor="#fff"
+        android:background="#A7AAEF"
+        android:textSize="25dp"
+        android:gravity="center"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.widget.ImageButton
+        android:id="@+id/button1"
+        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:src="@drawable/ic_jia"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="100dp"
+        android:layout_gravity="bottom|right"
+        android:elevation="1dp"
+        android:background="@drawable/ripple" />
+
+    <TextView
+        android:id="@+id/position_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"/>
+    </FrameLayout>
+</LinearLayout>

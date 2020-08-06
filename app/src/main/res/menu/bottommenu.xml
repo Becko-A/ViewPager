@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ditu"
+        android:icon="@drawable/ic_ditu"
+        android:title="地图" />
+    <item
+        android:id="@+id/xiaoxi"
+        android:icon="@drawable/ic_xiaoxi"
+        android:title="消息" />
+    <item
+        android:id="@+id/wode"
+        android:icon="@drawable/ic_mine"
+        android:title="我的" />
+</menu>

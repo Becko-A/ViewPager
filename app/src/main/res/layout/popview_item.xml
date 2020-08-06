@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A7AAEF" >
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:text="一键寻物" />
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/button2"/>
+
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:background="#fff"
+        android:text="一键发布" />
+
+
+
+</RelativeLayout>

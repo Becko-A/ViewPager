@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/zhucelan"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#A7AAEF"
+            android:text="注册"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"/>
+
+        <TextView
+            android:id="@+id/forget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="忘记密码?"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/kong"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_above="@+id/zhucelan"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="310dp"
+        android:layout_height="55dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/kong"
+        android:background="@drawable/edittext"
+        android:inputType="textPassword"
+        android:hint=" 请输入密码"/>
+    <EditText
+        android:id="@+id/account"
+        android:layout_width="310dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="22dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/password"
+        android:background="@drawable/edittext"
+        android:hint=" 请输入手机号"/>
+
+    <LinearLayout
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:layout_above="@+id/account">
+        <TextView
+            android:id="@+id/text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:text="Hi，欢迎来到"
+            />
+        <TextView
+            android:id="@+id/text_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="#A7AAEF"
+            android:textStyle="bold"
+            android:text="寻物"
+            />
+    </LinearLayout>
+    <Button
+        android:id="@+id/login"
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/zhucelan"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:textColor="#fff"
+        android:text="登   录"
+        android:background="@drawable/button"/>
+
+
+</RelativeLayout>
