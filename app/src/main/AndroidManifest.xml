@@ -23,7 +23,8 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Cimprove"></activity>
+        <activity android:name=".Cimprove_detail"></activity>
+        <activity android:name=".Cimprove" />
         <activity android:name=".Bchat" />
         <activity android:name=".Crecord_diushi" />
         <activity android:name=".Crecord_shiwu" />

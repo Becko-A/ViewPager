@@ -47,7 +47,6 @@ public class Fragment2 extends Fragment {
         });
         return rootview;
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -62,6 +61,4 @@ public class Fragment2 extends Fragment {
         User user3=new User("用户小C","hello",R.drawable.user3);
         userList.add(user3);
     }
-
-
 }
