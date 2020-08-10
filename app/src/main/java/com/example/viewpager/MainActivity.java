@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    //注释  试一试
     private static final String TAG="MainActivity";
     ViewPager viewPager;
     BottomNavigationView navigation;
