@@ -56,8 +56,9 @@
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
                     android:textColor="#000"
-                    android:text="丢失地点" />
+                    android:text="拾物地点" />
                 <EditText
+                    android:id="@+id/pick_location_Edtxt"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
@@ -79,6 +80,7 @@
                     android:textColor="#000"
                     android:text="手机号码" />
                 <EditText
+                    android:id="@+id/pick_phonenum_Edtxt"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
@@ -100,8 +102,9 @@
                     android:textSize="18sp"
                     android:textColor="#000"
                     android:inputType="date"
-                    android:text="丢失日期" />
+                    android:text="拾物日期" />
                 <EditText
+                    android:id="@+id/pick_date_Edtxt"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
@@ -121,8 +124,9 @@
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
                     android:textColor="#000"
-                    android:text="丢失时间" />
+                    android:text="拾物时间" />
                 <EditText
+                    android:id="@+id/pick_time_Edtxt"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
@@ -142,9 +146,10 @@
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
                     android:textColor="#000"
-                    android:text="丢失物品" />
+                    android:text="拾物物品" />
 
                 <EditText
+                    android:id="@+id/pick_type_Edtxt"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
@@ -167,6 +172,7 @@
                     android:text="物品大小" />
 
                 <EditText
+                    android:id="@+id/pick_size_Edtxt"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
@@ -189,6 +195,7 @@
                     android:text="物品颜色" />
 
                 <EditText
+                    android:id="@+id/pick_color_Edtxt"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
@@ -214,6 +221,7 @@
                     android:textSize="18sp" />
 
                 <EditText
+                    android:id="@+id/pick_descri_Edtxt"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
@@ -223,14 +231,14 @@
                     android:hint="选填"/>
             </LinearLayout>
             <Button
-                android:id="@+id/find_next"
+                android:id="@+id/announce_next"
                 android:layout_width="180dp"
                 android:layout_height="55dp"
                 android:layout_below="@+id/check"
                 android:layout_gravity="center"
                 android:textSize="20dp"
                 android:textColor="#fff"
-                android:text="寻   找"
+                android:text="发   布"
                 android:background="@drawable/button"/>
         </LinearLayout>
     </ScrollView>
