@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView navigation;
     List<Fragment> listFragment;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +36,12 @@ public class MainActivity extends AppCompatActivity {
         listFragment.add(new Fragment1());
         listFragment.add(new Fragment2());
         listFragment.add(new Fragment3());
-        MyFragAdapter myAdapter=new MyFragAdapter(getSupportFragmentManager(),this,listFragment);
+        MyFragAdapter myAdapter=new MyFragAdapter(getSupportFragmentManager(),
+                this,listFragment);
         viewPager.setAdapter(myAdapter);
 
-        navigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+        navigation.setOnNavigationItemReselectedListener(
+                new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
@@ -69,7 +69,12 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onPageSelected(int position){
-                navigation.getMenu().getItem(position).setChecked(true);
+                /*if (navigation.getMenu().getItem(position) != null) {
+                    navigation.getMenu().getItem(position).setChecked(false);
+                } else {
+                    navigation.getMenu().getItem(0).setChecked(false);
+                }*/
+                navigation.getMenu().getItem(position).setChecked(true);//让当前页面的按钮点亮
             }
 
 
