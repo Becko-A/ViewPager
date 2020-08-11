@@ -100,7 +100,7 @@
             android:textColor="#A7AAEF"/>
     </LinearLayout>
     <Button
-        android:id="@+id/login"
+        android:id="@+id/register"
         android:layout_width="260dp"
         android:layout_height="60dp"
         android:layout_below="@+id/gain"

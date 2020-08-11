@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
@@ -19,6 +21,7 @@ import java.util.*;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -51,44 +54,53 @@ public class LoginActivity extends AppCompatActivity {
         bt_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
-                String account=et_account.getText().toString().trim();
-                String pwd=et_pwd.getText().toString().trim();
-                //login(account,pwd);
+                //Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                //startActivity(intent);
+                String account=et_account.getText().toString();
+                String pwd=et_pwd.getText().toString();
+                login(account,pwd);
             }
         });
     }
-    /*private void login(String account,String pwd){
+
+
+
+    private void login(String account, String pwd){
         if (account == null || "null".equals(account) || account.length() == 0){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(LoginActivity.this,"账号不能为空",Toast.LENGTH_SHORT);
+                    Toast.makeText(LoginActivity.this,"账号不能为空",
+                            Toast.LENGTH_SHORT).show();
                 }
             });
-            return;
         }
         if (pwd == null || "null".equals(pwd) || pwd.length() == 0){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(LoginActivity.this,"密码不能为空",Toast.LENGTH_SHORT);
+                    Toast.makeText(LoginActivity.this,"密码不能为空",
+                            Toast.LENGTH_SHORT).show();
                 }
             });
-            return;
         }
         OkHttpClient client=new OkHttpClient.Builder()
                 .build();
-        Map m=new HashMap();
-        m.put("name",account);
+        /*Map m=new HashMap();
+        m.put("user", account);
         m.put("password",pwd);
+
         JSONObject jsonObject=new JSONObject(m);
         String jsonStr=jsonObject.toString();
+        MediaType type=MediaType.Companion.parse("application/json; charset=UTF-8");
         RequestBody requestBodyJson=
-                RequestBody.create(MediaType.parse("application/json;charset=utf-8"),jsonStr);
+                RequestBody.Companion.create(jsonStr,type);*/
+        RequestBody requestBodyJson=new FormBody.Builder()
+                .add("name",account)
+                .add("password",pwd)
+                .build();
         Request request=new Request.Builder()
-                .url()
+                .url("http://bbs.takemonene.com:8986/login.php")
                 .addHeader("contentType","application/json;charset=UTF-8")
                 .post(requestBodyJson)
                 .build();
@@ -96,21 +108,36 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(LoginActivity.this,"请求失败",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
-
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 final String result=response.body().string();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(LoginActivity.this,result,Toast.LENGTH_SHORT);
+                        //Toast.makeText(LoginActivity.this,result,Toast.LENGTH_SHORT).show();
+                        Gson gson = new Gson();
+                        Aresponse re = gson.fromJson(result,Aresponse.class);
+                        if (re.code == 200){
+                            //Toast.makeText(LoginActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                            startActivity(intent);
+                        }
+
+                        else if (re.code == 355){
+                            Toast.makeText(LoginActivity.this,"登陆失败",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
         });
 
+    }
 
-    }*/
 }

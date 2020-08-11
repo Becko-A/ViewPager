@@ -1,15 +1,121 @@
 package com.example.viewpager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class RegisterActivity extends AppCompatActivity {
+    private EditText et_phoneNum;
+    private EditText et_password;
+    private Button bt_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        et_phoneNum=(EditText) findViewById(R.id.phoneNum);
+        et_password=(EditText) findViewById(R.id.password);
+        bt_register=(Button) findViewById(R.id.register);
+        bt_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String account=et_phoneNum.getText().toString();
+                String pwd=et_password.getText().toString();
+                register(account,pwd);
+                //sendRequestWithOkhttp(account,pwd);
+            }
+        });
     }
+
+    private void register(String account,String pwd){
+        if (account == null || "null".equals(account) || account.length() == 0){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(RegisterActivity.this,"账号不能为空",Toast.LENGTH_SHORT).show();
+                }
+            });
+            return;
+        }
+        if (pwd == null || "null".equals(pwd) || pwd.length() == 0){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(RegisterActivity.this,"密码不能为空",Toast.LENGTH_SHORT).show();
+                }
+            });
+            return;
+        }
+        OkHttpClient client=new OkHttpClient.Builder()
+                .build();
+        /*Map m=new HashMap();
+        m.put("name",account);
+        m.put("password",pwd);
+        JSONObject jsonObject=new JSONObject(m);
+        String jsonStr=jsonObject.toString();
+        RequestBody requestBodyJson=
+                RequestBody.create(MediaType.parse("application/json;charset=utf-8"),jsonStr);*/
+        RequestBody requestBodyJson=new FormBody.Builder()
+                .add("name",account)
+                .add("password",pwd)
+                .build();
+        Request request=new Request.Builder()
+                .url("http://bbs.takemonene.com:8986/register.php")
+                .addHeader("contentType","application/json;charset=UTF-8")
+                .post(requestBodyJson)
+                .build();
+        final Call call=client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                final String result=response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Toast.makeText(RegisterActivity.this,result,Toast.LENGTH_SHORT).show();
+                        Gson gson = new Gson();
+                        Aresponse re = gson.fromJson(result,Aresponse.class);
+                        if (re.code == 200){
+                            Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+                        }
+                        else if (re.code == 355){
+                            Toast.makeText(RegisterActivity.this,"注册失败",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+
 }
