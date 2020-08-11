@@ -82,7 +82,7 @@ public class Aannounce extends AppCompatActivity {
                             .build();
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("http://bbs.takemonene.com:8986/test.php")
+                            .url("http://bbs.takemonene.com:8986/Aannounce_test.php")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();
@@ -102,12 +102,12 @@ public class Aannounce extends AppCompatActivity {
             @Override
             public void run() {
                 Gson gson = new Gson();
-                Aresponse re = gson.fromJson(jsonDate,Aresponse.class);
+                Z_ReType re = gson.fromJson(jsonDate,Z_ReType.class);
                 if (re.code == 355){
-                    Toast.makeText(Aannounce.this,"表单填写不完整",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Aannounce.this,"信息填写不完整",Toast.LENGTH_SHORT).show();
                 }
                 else if (re.code == 200){
-                    Toast.makeText(Aannounce.this,"保存成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Aannounce.this,"上传成功",Toast.LENGTH_SHORT).show();
                 }
             }
         });
