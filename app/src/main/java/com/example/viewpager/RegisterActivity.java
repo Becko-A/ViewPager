@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void run() {
                         //Toast.makeText(RegisterActivity.this,result,Toast.LENGTH_SHORT).show();
                         Gson gson = new Gson();
-                        Aresponse re = gson.fromJson(result,Aresponse.class);
+                        Z_ReType re = gson.fromJson(result,Z_ReType.class);
                         if (re.code == 200){
                             Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
                         }
