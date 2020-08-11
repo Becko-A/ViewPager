@@ -11,7 +11,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.InputStream;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class Cimprove extends AppCompatActivity {
     private View schoolView;
@@ -38,6 +46,8 @@ public class Cimprove extends AppCompatActivity {
     private View qqView;
     private TextView final_qq;
 
+    private Button saved_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +68,9 @@ public class Cimprove extends AppCompatActivity {
         final_phone=(TextView) findViewById(R.id.phone);
         final_weChat=(TextView) findViewById(R.id.weChat);
         final_qq=(TextView) findViewById(R.id.qq);
+
+        saved_button=(Button) findViewById(R.id.commit);
+
         schoolView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,6 +154,22 @@ public class Cimprove extends AppCompatActivity {
                 startActivityForResult(intent,requestCode);
             }
         });
+        saved_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String srSchool = final_school.getText().toString();
+                String srDept = final_dept.getText().toString();
+                String srEducation = final_education.getText().toString();
+                String srStuID = final_stuID.getText().toString();
+                String srName = final_name.getText().toString();
+                String srPhone = final_phone.getText().toString();
+                String srWechat = final_weChat.getText().toString();
+                String srQQ = final_qq.getText().toString();
+
+                sendRequestWithOkhttp(srSchool,srDept,srEducation,srStuID,srName,
+                        srPhone,srWechat,srQQ);
+            }
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -180,6 +209,53 @@ public class Cimprove extends AppCompatActivity {
             String result = data.getStringExtra("RESULT");
             final_qq.setText(result);
         }
+    }
+
+    private void sendRequestWithOkhttp(final String School,final String Dept,
+                                       final String Education,final String StuID, final String Name,
+                                       final String Phone,final String Wechat,final String QQ){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    RequestBody requestBody = new  FormBody.Builder()
+                            .add("improve_school",School)
+                            .add("improve_dept",Dept)
+                            .add("improve_edu",Education)
+                            .add("improve_stuID",StuID)
+                            .add("improve_name",Name)
+                            .add("improve_phone",Phone)
+                            .add("improve_wechat",Wechat)
+                            .add("improve_qq",QQ)
+                            .build();
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("http://bbs.takemonene.com:8986/Cimprove_test.php")
+                            .post(requestBody)
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    parseJSONWithGSON(responseData);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(Cimprove.this,"fail",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }).start();
+    }
+
+    private void parseJSONWithGSON(final String jsonDate){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Gson gson = new Gson();
+                Z_ReType re = gson.fromJson(jsonDate,Z_ReType.class);
+                if (re.code == 200){
+                    Toast.makeText(Cimprove.this,"上传成功",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 }
