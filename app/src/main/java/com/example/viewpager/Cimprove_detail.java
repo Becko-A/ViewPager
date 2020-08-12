@@ -10,12 +10,20 @@ import android.widget.EditText;
 
 public class Cimprove_detail extends AppCompatActivity {
     private EditText editSchool;
+    private View back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cimprove_detail);
         editSchool=(EditText) findViewById(R.id.edit_school);
+        back=(View) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         //4). 得到intent对象
         Intent intent = getIntent();
         //5). 通过intent读取额外数据
@@ -24,7 +32,7 @@ public class Cimprove_detail extends AppCompatActivity {
         editSchool.setText(message);
 
     }
-    public void commitSchool(View v) {
+    public void commit(View v) {
 
         //保存一个结果
         int resultCode = 9;

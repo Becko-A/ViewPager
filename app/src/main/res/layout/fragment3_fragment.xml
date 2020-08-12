@@ -34,6 +34,7 @@
             tools:ignore="MissingClass" />
 
         <LinearLayout
+            android:id="@+id/frag_ziLiao"
             android:layout_width="0dp"
             android:layout_height="180dp"
             android:layout_marginLeft="20dp"
@@ -41,6 +42,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/frag_name"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:gravity="bottom"
@@ -49,6 +51,7 @@
                 android:textSize="20dp" />
 
             <TextView
+                android:id="@+id/frag_school"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:gravity="bottom"
@@ -56,6 +59,7 @@
                 android:textSize="15dp" />
 
             <TextView
+                android:id="@+id/frag_education"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginBottom="10dp"

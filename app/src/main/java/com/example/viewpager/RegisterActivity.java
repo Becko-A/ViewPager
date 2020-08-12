@@ -32,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText et_phoneNum;
     private EditText et_password;
     private Button bt_register;
+    private EditText et_check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +41,20 @@ public class RegisterActivity extends AppCompatActivity {
         et_phoneNum=(EditText) findViewById(R.id.phoneNum);
         et_password=(EditText) findViewById(R.id.password);
         bt_register=(Button) findViewById(R.id.register);
+        et_check=(EditText) findViewById(R.id.repeat);
         bt_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String account=et_phoneNum.getText().toString();
                 String pwd=et_password.getText().toString();
-                register(account,pwd);
+                String check=et_check.getText().toString();
+                register(account,pwd,check);
                 //sendRequestWithOkhttp(account,pwd);
             }
         });
     }
 
-    private void register(String account,String pwd){
+    private void register(String account,String pwd,String check){
         if (account == null || "null".equals(account) || account.length() == 0){
             runOnUiThread(new Runnable() {
                 @Override
@@ -70,51 +73,51 @@ public class RegisterActivity extends AppCompatActivity {
             });
             return;
         }
-        OkHttpClient client=new OkHttpClient.Builder()
-                .build();
-        /*Map m=new HashMap();
-        m.put("name",account);
-        m.put("password",pwd);
-        JSONObject jsonObject=new JSONObject(m);
-        String jsonStr=jsonObject.toString();
-        RequestBody requestBodyJson=
-                RequestBody.create(MediaType.parse("application/json;charset=utf-8"),jsonStr);*/
-        RequestBody requestBodyJson=new FormBody.Builder()
-                .add("name",account)
-                .add("password",pwd)
-                .build();
-        Request request=new Request.Builder()
-                .url("http://bbs.takemonene.com:8986/register.php")
-                .addHeader("contentType","application/json;charset=UTF-8")
-                .post(requestBodyJson)
-                .build();
-        final Call call=client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+        if(pwd.equals(check)){
 
-            }
+            OkHttpClient client=new OkHttpClient.Builder()
+                    .build();
+            RequestBody requestBodyJson=new FormBody.Builder()
+                    .add("name",account)
+                    .add("password",pwd)
+                    .build();
+            Request request=new Request.Builder()
+                    .url("http://bbs.takemonene.com:8986/register.php")
+                    .addHeader("contentType","application/json;charset=UTF-8")
+                    .post(requestBodyJson)
+                    .build();
+            final Call call=client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                final String result=response.body().string();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Toast.makeText(RegisterActivity.this,result,Toast.LENGTH_SHORT).show();
-                        Gson gson = new Gson();
-                        Z_ReType re = gson.fromJson(result,Z_ReType.class);
-                        if (re.code == 200){
-                            Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    final String result=response.body().string();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Toast.makeText(RegisterActivity.this,result,Toast.LENGTH_SHORT).show();
+                            Gson gson = new Gson();
+                            Z_ReType re = gson.fromJson(result,Z_ReType.class);
+                            if (re.code == 200){
+                                //Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+                                Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                            }
+                            else if (re.code == 355){
+                                Toast.makeText(RegisterActivity.this,"注册失败",Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else if (re.code == 355){
-                            Toast.makeText(RegisterActivity.this,"注册失败",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        });
-
+                    });
+                }
+            });
+        }
+        else {
+            Toast.makeText(RegisterActivity.this,"输入密码不一致",Toast.LENGTH_SHORT).show();
+        }
 
     }
 

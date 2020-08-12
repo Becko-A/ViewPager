@@ -223,15 +223,16 @@
                 android:layout_height="60dp"
                 android:orientation="horizontal"
                 android:layout_gravity="center">
+
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginRight="60dp"
+                    android:layout_weight="2"
                     android:text="真实姓名"
-                    android:textSize="16dp"
                     android:textColor="#000"
-                    android:layout_gravity="center_vertical"/>
+                    android:textSize="16dp" />
                 <LinearLayout
                     android:id="@+id/click_name"
                     android:layout_width="0dp"

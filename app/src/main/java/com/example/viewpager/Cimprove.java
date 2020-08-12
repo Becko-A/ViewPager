@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class Cimprove extends AppCompatActivity {
     private TextView final_qq;
 
     private Button saved_button;
+    private View back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,14 @@ public class Cimprove extends AppCompatActivity {
         final_qq=(TextView) findViewById(R.id.qq);
 
         saved_button=(Button) findViewById(R.id.commit);
+        back=(View) findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         schoolView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,9 +164,20 @@ public class Cimprove extends AppCompatActivity {
                 startActivityForResult(intent,requestCode);
             }
         });
+
+
+        Intent intent=getIntent();
+        String name=intent.getStringExtra("NAME");
+        String school=intent.getStringExtra("SCHOOL");
+        String education=intent.getStringExtra("EDUCATION");
+        final_name.setText(name);
+        final_school.setText(school);
+        final_education.setText(education);
+
         saved_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String srSchool = final_school.getText().toString();
                 String srDept = final_dept.getText().toString();
                 String srEducation = final_education.getText().toString();
@@ -166,8 +187,16 @@ public class Cimprove extends AppCompatActivity {
                 String srWechat = final_weChat.getText().toString();
                 String srQQ = final_qq.getText().toString();
 
+                int resultCode=9;
+                Intent data=new Intent();
+                data.putExtra("RESULT_NAME",srName);
+                data.putExtra("RESULT_SCHOOL",srSchool);
+                data.putExtra("RESULT_EDUCATION",srEducation);
+                setResult(resultCode,data);
+
                 sendRequestWithOkhttp(srSchool,srDept,srEducation,srStuID,srName,
                         srPhone,srWechat,srQQ);
+
             }
         });
     }
@@ -252,7 +281,8 @@ public class Cimprove extends AppCompatActivity {
                 Gson gson = new Gson();
                 Z_ReType re = gson.fromJson(jsonDate,Z_ReType.class);
                 if (re.code == 200){
-                    Toast.makeText(Cimprove.this,"上传成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Cimprove.this,"保存成功",Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         });

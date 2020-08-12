@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 
@@ -17,10 +19,18 @@ public class Crecord_shiwu extends AppCompatActivity {
     ViewPager viewPager;
     List<Fragment> fragmentList;
     RadioGroup radioGroup;
+    ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cshiwu_record);
+        back=(ImageView) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         initView();
     }
     private void initView(){

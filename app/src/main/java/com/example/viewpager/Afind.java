@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class Afind extends AppCompatActivity {
     private EditText color;
     private EditText description;
     private Button findIt;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,13 @@ public class Afind extends AppCompatActivity {
         color = (EditText) findViewById(R.id.lost_color_Edtxt);
         description = (EditText) findViewById(R.id.lost_descri_Edtxt);
         findIt = (Button) findViewById(R.id.find_next);
+        back=(ImageView) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         findIt.setOnClickListener(new View.OnClickListener() {
             @Override

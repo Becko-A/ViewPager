@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class Aannounce extends AppCompatActivity {
     private EditText color;
     private EditText description;
     private Button announce;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,13 @@ public class Aannounce extends AppCompatActivity {
         color = (EditText) findViewById(R.id.pick_color_Edtxt);
         description = (EditText) findViewById(R.id.pick_descri_Edtxt);
         announce = (Button) findViewById(R.id.announce_next);
+        back=(ImageView) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         announce.setOnClickListener(new View.OnClickListener() {
             @Override
