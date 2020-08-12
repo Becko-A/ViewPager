@@ -16,6 +16,7 @@ public class Cimprove_detail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cimprove_detail);
+        ActivityCollectorUtil.addActivity(this);
         editSchool=(EditText) findViewById(R.id.edit_school);
         back=(View) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {

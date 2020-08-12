@@ -24,6 +24,7 @@ public class Crecord_shiwu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cshiwu_record);
+        ActivityCollectorUtil.addActivity(this);
         back=(ImageView) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

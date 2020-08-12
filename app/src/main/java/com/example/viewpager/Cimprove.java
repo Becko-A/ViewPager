@@ -54,6 +54,7 @@ public class Cimprove extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cimprove);
+        ActivityCollectorUtil.addActivity(this);
         schoolView=(View) findViewById(R.id.click_school);
         deptView=(View) findViewById(R.id.click_dept);
         educationView=(View) findViewById(R.id.click_education);

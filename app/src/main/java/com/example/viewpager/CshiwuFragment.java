@@ -18,6 +18,7 @@ public class CshiwuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ActivityCollectorUtil.addActivity(getActivity());
         mContext=getContext();
         mView=inflater.inflate(R.layout.fragment_cshiwu, container, false);
         ListView goods=mView.findViewById(R.id.list_item);
