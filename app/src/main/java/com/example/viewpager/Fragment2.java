@@ -32,6 +32,7 @@ public class Fragment2 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        ActivityCollectorUtil.addActivity(getActivity());
         View rootview=inflater.inflate(R.layout.fragment2_fragment, container, false);
         initUsers();
         UserAdapter adapter=new UserAdapter(getActivity(),R.layout.user_list,userList);

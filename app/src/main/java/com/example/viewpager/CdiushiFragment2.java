@@ -18,6 +18,7 @@ public class CdiushiFragment2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ActivityCollectorUtil.addActivity(getActivity());
         // Inflate the layout for this fragment
         mContext=getContext();
         mView=inflater.inflate(R.layout.fragment_cdiushi2, container, false);
