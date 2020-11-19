@@ -85,62 +85,53 @@ public class LoginActivity extends AppCompatActivity {
             });
         }
         else {
-            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-            startActivity(intent);
+            OkHttpClient client=new OkHttpClient.Builder()
+                    .build();
+
+            RequestBody requestBodyJson=new FormBody.Builder()
+                    .add("name",account)
+                    .add("password",pwd)
+                    .build();
+            Request request=new Request.Builder()
+                    .url("http://www.nanshannan331:80/login.php")
+                    .addHeader("contentType","application/json;charset=UTF-8")
+                    .post(requestBodyJson)
+                    .build();
+            final Call call=client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(LoginActivity.this,"请求失败",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    final String result=response.body().string();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Toast.makeText(LoginActivity.this,result,Toast.LENGTH_SHORT).show();
+                            Gson gson = new Gson();
+                            Z_ReType re = gson.fromJson(result,Z_ReType.class);
+                            if (re.code == 200){
+                                //Toast.makeText(LoginActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+                                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                                startActivity(intent);
+                            }
+
+                            else if (re.code == 404){
+                                Toast.makeText(LoginActivity.this,"登陆失败",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            });
         }
-        /*OkHttpClient client=new OkHttpClient.Builder()
-                .build();
-        *//*Map m=new HashMap();
-        m.put("user", account);
-        m.put("password",pwd);
 
-        JSONObject jsonObject=new JSONObject(m);
-        String jsonStr=jsonObject.toString();
-        MediaType type=MediaType.Companion.parse("application/json; charset=UTF-8");
-        RequestBody requestBodyJson=
-                RequestBody.Companion.create(jsonStr,type);*//*
-        RequestBody requestBodyJson=new FormBody.Builder()
-                .add("name",account)
-                .add("password",pwd)
-                .build();
-        Request request=new Request.Builder()
-                .url("http://bbs.takemonene.com:8986/login.php")
-                .addHeader("contentType","application/json;charset=UTF-8")
-                .post(requestBodyJson)
-                .build();
-        final Call call=client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(LoginActivity.this,"请求失败",Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                final String result=response.body().string();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Toast.makeText(LoginActivity.this,result,Toast.LENGTH_SHORT).show();
-                        Gson gson = new Gson();
-                        Z_ReType re = gson.fromJson(result,Z_ReType.class);
-                        if (re.code == 200){
-                            //Toast.makeText(LoginActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                            startActivity(intent);
-                        }
-
-                        else if (re.code == 355){
-                            Toast.makeText(LoginActivity.this,"登陆失败",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        });*/
 
     }
 
