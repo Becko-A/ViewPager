@@ -84,9 +84,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
-        OkHttpClient client=new OkHttpClient.Builder()
+        else {
+            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+        }
+        /*OkHttpClient client=new OkHttpClient.Builder()
                 .build();
-        /*Map m=new HashMap();
+        *//*Map m=new HashMap();
         m.put("user", account);
         m.put("password",pwd);
 
@@ -94,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
         String jsonStr=jsonObject.toString();
         MediaType type=MediaType.Companion.parse("application/json; charset=UTF-8");
         RequestBody requestBodyJson=
-                RequestBody.Companion.create(jsonStr,type);*/
+                RequestBody.Companion.create(jsonStr,type);*//*
         RequestBody requestBodyJson=new FormBody.Builder()
                 .add("name",account)
                 .add("password",pwd)
@@ -136,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
 
     }
 

@@ -50,12 +50,13 @@ public class Fragment1 extends Fragment{
     private TextView positionText;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
-    //private double longitude;
-    //private double latitude;
+    private double lon;
+    private double lat;
     private LocationClient mLocationClient;
     private boolean isFirstLocate = true;
 
     private ImageButton movebtn;
+    private ImageButton locbtn;
     private boolean clickormove = true;//点击或拖动，点击为true，拖动为false
     private int downX, downY;//按下时的X，Y坐标
     private boolean hasMeasured = false;//ViewTree是否已被测量过，是为true，否为false
@@ -123,6 +124,19 @@ public class Fragment1 extends Fragment{
             }
         });
         movebtn = (ImageButton) rootView.findViewById(R.id.button1);
+        locbtn = (ImageButton) rootView.findViewById(R.id.loc);
+        locbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLocationClient.requestLocation();
+                LatLng ll =new LatLng(lat,lon);
+                MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
+                mBaiduMap.animateMapStatus(u);
+                mBaiduMap.setMapStatus(u);
+                MapStatusUpdate u1 = MapStatusUpdateFactory.zoomTo(16f);        //缩放
+                mBaiduMap.animateMapStatus(u1);
+            }
+        });
         movebtn.setOnTouchListener(new View.OnTouchListener() {//设置按钮被触摸的时间
             int lastX, lastY; // 记录移动的最后的位置
             @Override
@@ -279,6 +293,14 @@ public class Fragment1 extends Fragment{
         mMapView.onDestroy();
         mBaiduMap.setMyLocationEnabled(false);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        isFirstLocate = true;
+        //mBaiduMap.setMyLocationEnabled(true);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -351,6 +373,8 @@ public class Fragment1 extends Fragment{
             location.getLocType()==BDLocation.TypeNetWorkLocation){
                 navigateTo(location);
             }
+            lat = location.getLatitude();
+            lon = location.getLongitude();
         }
 
     }

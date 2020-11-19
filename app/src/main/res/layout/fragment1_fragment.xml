@@ -16,6 +16,18 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <android.widget.ImageButton
+            android:id="@+id/loc"
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:background="@drawable/loc"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="50dp"
+            android:layout_gravity="bottom|left"
+            android:elevation="1dp"
+            />
     <android.widget.ImageButton
         android:id="@+id/button1"
         android:layout_height="50dp"
