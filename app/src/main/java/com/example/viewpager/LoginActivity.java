@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                     .add("password",pwd)
                     .build();
             Request request=new Request.Builder()
-                    .url("http://www.nanshannan331:80/login.php")
+                    .url("http://www.nanshannan331.com:80/login.php")
                     .addHeader("contentType","application/json;charset=UTF-8")
                     .post(requestBodyJson)
                     .build();

@@ -260,7 +260,7 @@ public class Cimprove extends AppCompatActivity {
                             .build();
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("http://bbs.takemonene.com:8986/Cimprove_test.php")
+                            .url("http://www.nanshannan331.com:80/Cimprove.php")
                             .post(requestBody)
                             .build();
                     Response response = client.newCall(request).execute();
