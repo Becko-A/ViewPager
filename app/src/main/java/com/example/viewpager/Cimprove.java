@@ -50,10 +50,16 @@ public class Cimprove extends AppCompatActivity {
     private Button saved_button;
     private View back;
 
+    private MyApplication mApplication;
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cimprove);
+        mApplication = (MyApplication) getApplication();
+        user = mApplication.getLoginUser();
+
         ActivityCollectorUtil.addActivity(this);
         schoolView=(View) findViewById(R.id.click_school);
         deptView=(View) findViewById(R.id.click_dept);
@@ -257,6 +263,8 @@ public class Cimprove extends AppCompatActivity {
                             .add("improve_phone",Phone)
                             .add("improve_wechat",Wechat)
                             .add("improve_qq",QQ)
+                            .add("userid",user.getUserId())
+                            .add("token",user.getToken())
                             .build();
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()

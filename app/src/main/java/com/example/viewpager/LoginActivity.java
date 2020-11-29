@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.AutofillService;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,12 +34,15 @@ public class LoginActivity extends AppCompatActivity {
     private Button bt_login;
     private EditText et_account;
     private EditText et_pwd;
-
+    private MyApplication mApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        // 获取整个应用的Application对象
+        // 在不同的Activity中获取的对象是同一个
+        mApplication = (MyApplication) getApplication();
         bt_zhuce=(TextView) findViewById(R.id.register);
         bt_login=(Button) findViewById(R.id.login);
         et_account=(EditText) findViewById(R.id.account);
@@ -119,6 +123,15 @@ public class LoginActivity extends AppCompatActivity {
                             Z_ReType re = gson.fromJson(result,Z_ReType.class);
                             if (re.code == 200){
                                 //Toast.makeText(LoginActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+                                /**
+                                 * 一般只有在登录界面中设置登录用户信息，在其他的Activity中
+                                 * 只要通过Application对象就可以获取登录用户信息
+                                 */
+                                User user = new User();
+                                user.setUserId(re.userid);
+                                user.setToken(re.token);
+                                mApplication.userLogin(user);
+                                Toast.makeText(LoginActivity.this,mApplication.getLoginUser().getUserId(),Toast.LENGTH_SHORT).show();
                                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                                 startActivity(intent);
                             }
