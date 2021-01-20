@@ -10,6 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class CshiwuFragment extends Fragment {
     private View mView;
@@ -26,7 +35,11 @@ public class CshiwuFragment extends Fragment {
         goods.setAdapter(new ArrayAdapter<String>(mContext,R.layout.support_simple_spinner_dropdown_item,list));
         // Inflate the layout for this fragment
         return mView;
+
+
     }
+
+
     public String[] initListData(){
         String[] list=new String[2];
         for (int i=0;i<2;i++){

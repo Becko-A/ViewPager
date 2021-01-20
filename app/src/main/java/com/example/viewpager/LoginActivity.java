@@ -130,8 +130,17 @@ public class LoginActivity extends AppCompatActivity {
                                 User user = new User();
                                 user.setUserId(re.userid);
                                 user.setToken(re.token);
+                                user.setSchool(re.School);
+                                user.setDept(re.Dept);
+                                user.setEducation(re.Education);
+                                user.setStuID(re.StuID);
+                                user.setName(re.Name);
+                                user.setPhone(re.Phone);
+                                user.setWechat(re.Wechat);
+                                user.setQQ(re.QQ);
+
                                 mApplication.userLogin(user);
-                                Toast.makeText(LoginActivity.this,mApplication.getLoginUser().getUserId(),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,mApplication.getLoginUser().getSchool(),Toast.LENGTH_SHORT).show();
                                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                                 startActivity(intent);
                             }

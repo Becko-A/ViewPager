@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                     .add("password",pwd)
                     .build();
             Request request=new Request.Builder()
-                    .url("http://bbs.takemonene.com:8986/register.php")
+                    .url("http://www.nanshannan331.com:80/register.php")
                     .addHeader("contentType","application/json;charset=UTF-8")
                     .post(requestBodyJson)
                     .build();

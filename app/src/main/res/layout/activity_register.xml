@@ -30,7 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/password"
         android:background="@drawable/edittext"
-        android:hint=" 请输入手机号"
+        android:hint=" 请输入昵称"
         android:inputType="number"/>
     <LinearLayout
         android:id="@+id/text2"
@@ -80,24 +80,25 @@
     <LinearLayout
         android:id="@+id/gain"
         android:layout_width="310dp"
+        android:orientation = "vertical"
         android:layout_height="wrap_content"
         android:layout_below="@+id/repeat"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="22dp">
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_weight="1"
-            android:hint=" 请输入验证码"
-            android:maxLines="1"
-            android:layout_marginBottom="22dp"
-            android:background="@drawable/edittext"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:background="#F6F5F5"
-            android:text="获取验证码"
-            android:textColor="#A7AAEF"/>
+<!--        <EditText-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:hint=" 请输入验证码"-->
+<!--            android:maxLines="1"-->
+<!--            android:layout_marginBottom="22dp"-->
+<!--            android:background="@drawable/edittext"/>-->
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:background="#F6F5F5"-->
+<!--            android:text="获取验证码"-->
+<!--            android:textColor="#A7AAEF"/>-->
     </LinearLayout>
     <Button
         android:id="@+id/register"

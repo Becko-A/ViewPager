@@ -69,6 +69,8 @@ public class Cimprove extends AppCompatActivity {
         phoneView=(View) findViewById(R.id.click_phone);
         weChatView=(View) findViewById(R.id.click_weChat);
         qqView=(View) findViewById(R.id.click_qq);
+
+
         final_school=(TextView) findViewById(R.id.school);
         final_dept=(TextView) findViewById(R.id.dept);
         final_education=(TextView) findViewById(R.id.education);

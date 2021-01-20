@@ -13,8 +13,16 @@ public class MyApplication extends Application{
         loginUser.setUserId(user.getUserId());
         loginUser.setToken(user.getToken());
         loginUser.setName(user.getName());
+        loginUser.setDept(user.getDept());
+        loginUser.setPhone(user.getPhone());
+        loginUser.setQQ(user.getQQ());
+        loginUser.setEducation(user.getEducation());
+        loginUser.setSchool(user.getSchool());
+        loginUser.setStuID(user.getStuID());
+        loginUser.setWechat(user.getWechat());
     }
     public void userLogout(){
         loginUser = new User();
     }
 }
+
