@@ -5,17 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="智能寻物系统"
-        android:textColor="#fff"
-        android:background="#A7AAEF"
-        android:textSize="25dp"
-        android:gravity="center"/>
+        android:orientation="horizontal"
+        android:background="#A7AAEF">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="50dp"
+            android:text="智能寻物系统"
+            android:textColor="#fff"
+            android:background="#A7AAEF"
+            android:textSize="25dp"
+            android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/show_route"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_weight="1"
+            android:background="#A7AAEF"
+            android:src="@drawable/ic_route_history" />
+
+    </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/position_text_view_lat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/position_text_view_lon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
         <android.widget.ImageButton
             android:id="@+id/loc"
             android:layout_height="25dp"

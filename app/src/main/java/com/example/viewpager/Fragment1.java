@@ -22,6 +22,7 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,13 +38,28 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.Overlay;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class Fragment1 extends Fragment{
     private PopupWindow popupwindow;
@@ -62,6 +78,10 @@ public class Fragment1 extends Fragment{
     private boolean hasMeasured = false;//ViewTree是否已被测量过，是为true，否为false
     private View content;//界面的ViewTree
     private int screenWidth,screenHeight;//ViewTree的宽和高
+    private ImageView showRoute;
+
+    public TextView latText;
+    public TextView lonText;
 
     private Fragment1ViewModel mViewModel;
 
@@ -83,6 +103,11 @@ public class Fragment1 extends Fragment{
         mBaiduMap=mMapView.getMap();
         mBaiduMap.setMyLocationEnabled(true);
         positionText = (TextView) rootView.findViewById(R.id.position_text_view);
+        showRoute = (ImageView) rootView.findViewById(R.id.show_route);
+        latText = (TextView) rootView.findViewById(R.id.position_text_view_lat);
+        lonText=(TextView) rootView.findViewById(R.id.position_text_view_lon);
+
+
         List<String> permissionList = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -214,9 +239,38 @@ public class Fragment1 extends Fragment{
             }
         });
 
+        showRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawLine();
+            }
+        });
+
 
 
         return rootView;
+    }
+
+    /** 画轨迹*/
+    public void DrawLine(){
+        //构建折线点坐标
+        LatLng p1 = new LatLng(39.97923, 116.357428);
+        LatLng p2 = new LatLng(39.94923, 116.397428);
+        LatLng p3 = new LatLng(39.97923, 116.437428);
+        List<LatLng> points = new ArrayList<LatLng>();
+        points.add(p1);
+        points.add(p2);
+        points.add(p3);
+
+        //设置折线的属性
+        OverlayOptions mOverlayOptions = new PolylineOptions()
+                .width(13)
+                .color(0xAAFF0000)
+                .points(points);
+        //在地图上绘制折线
+        //mPloyline 折线对象
+        Overlay mPolyline = mBaiduMap.addOverlay(mOverlayOptions);
+
     }
 
     public void initmPopupWindowView() {
@@ -369,12 +423,64 @@ public class Fragment1 extends Fragment{
                 currentPosition.append("网络");
             }
             positionText.setText(currentPosition);*/
+
+            lat = location.getLatitude();
+            lon = location.getLongitude();
+            latText.setText(String.valueOf(lat));
+            lonText.setText(String.valueOf(lon));
+
+            OkHttpClient client=new OkHttpClient.Builder()
+                    .build();
+
+            RequestBody requestBodyJson=new FormBody.Builder()
+                    .add("latitude", latText.getText().toString())
+                    .add("longitude", lonText.getText().toString())
+                    .build();
+
+            Request request=new Request.Builder()
+                    .url("http://www.nanshannan331.com:80/location.php")
+                    .addHeader("contentType","application/json;charset=UTF-8")
+                    .post(requestBodyJson)
+                    .build();
+            final Call call=client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(),"请求失败",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    final String result=response.body().string();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
+                            Gson gson = new Gson();
+//                            Z_ReType re = gson.fromJson(result,Z_ReType.class);
+//                            if (re.code == 200){
+//                                Toast.makeText(MainActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+//
+//                            }
+//
+//                            else if (re.code == 404){
+//                                Toast.makeText(MainActivity.this,"登陆失败",Toast.LENGTH_SHORT).show();
+//                            }
+                        }
+                    });
+                }
+            });
+
+
             if (location.getLocType()==BDLocation.TypeGpsLocation ||
             location.getLocType()==BDLocation.TypeNetWorkLocation){
                 navigateTo(location);
             }
-            lat = location.getLatitude();
-            lon = location.getLongitude();
+
         }
 
     }
